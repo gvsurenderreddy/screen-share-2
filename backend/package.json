@@ -1,0 +1,11 @@
+{
+  "name": "screen-share-backend",
+  "version": "0.1.0",
+  "description": "backend server to the screen share app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Marcus Larsson",
+  "license": "MIT"
+}
