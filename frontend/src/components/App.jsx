@@ -4,10 +4,21 @@ import React from 'react';
 
 export default React.createClass({
   getInitialState() {
-    return { open: false };
+    return {streamURL: false};
   },
-  componentDidMount() {
-
+  componentWillMount() {
+    const url = window.URL || window.webkitURL;
+    navigator.getUserMedia = (
+      navigator.getUserMedia ||
+      navigator.webkitGetUserMedia ||
+      navigator.mozGetUserMedia ||
+      navigator.msGetUserMedia
+    );
+    navigator.getUserMedia({video:true, audio:false}, stream => {
+      this.setState({
+        streamURL: (url ? url.createObjectURL(stream) : stream)
+      });
+    }, error => console.error('get user media failed!', error));
   },
   handleClick() {
     this.setState({open: !this.state.open})
@@ -15,14 +26,9 @@ export default React.createClass({
   render() {
     return (
       <div>
-        <button onClick={this.handleClick}>
-          test
-        </button>
-        {
-          this.state.open ?
-          <div>open</div> :
-          <div>closed</div>
-        }
+        <video
+          src={this.state.streamURL}
+          autoPlay />
       </div>
     );
   }
