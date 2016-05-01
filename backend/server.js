@@ -18,10 +18,18 @@ app.get('/bundle.js', (req, res) => {
 
 // socket events
 io.on('connection', socket => {
+  // start streaming event
   socket.on('start-stream', data => {
     console.log('dsadsa', data);
     // TODO: add the webRTC code to the streams array
     socket.broadcast.emit('streamlist-update', {
+      streams: streams
+    });
+  });
+
+  // get streams event
+  socket.on('get-streams', () => {
+    socket.emit('streamlist-update', {
       streams: streams
     });
   });

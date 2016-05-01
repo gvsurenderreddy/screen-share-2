@@ -25,17 +25,13 @@ export default React.createClass({
       });
     }, error => console.error('get user media failed!', error));
   },
-  handleSubmit(e) {
-    e.preventDefault();
-    console.log('test!');
-  },
   render() {
     return (
       <div>
-        <button onClick={this.handleClick}>Start Streaming</button>
         {
-          this.state.streamURL &&
-          <video src={this.state.streamURL} autoPlay />
+          this.state.streamURL ?
+          <video src={this.state.streamURL} autoPlay /> :
+          <button onClick={this.handleClick}>Start Streaming</button>
         }
       </div>
     );
